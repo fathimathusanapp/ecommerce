@@ -1,0 +1,185 @@
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>My Orders</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h3 {
+            font-family: 'Georgia', serif;
+            font-size: 1.75em;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background-color: #343a40;
+            color: #ffffff;
+        }
+
+        thead th {
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        tbody td {
+            padding: 10px;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 14px;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #f9f9f9;
+        }
+
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .btn {
+            font-size: 0.85em;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: #ffffff;
+            border: none;
+        }
+
+        .btn-info {
+            background-color: #17a2b8;
+            color: #ffffff;
+            border: none;
+        }
+
+        .btn-sm {
+            font-size: 0.8em;
+        }
+        tbody td {
+         padding: 15px;
+         text-align: center;
+         vertical-align: middle;
+         font-size: 14px;
+        }
+
+        .badge {
+            padding: 5px 10px;
+            font-size: 0.8em;
+            border-radius: 5px;
+            color: #ffffff;
+        }
+
+        .badge.bg-warning { background-color: #ffc107; }
+        .badge.bg-info { background-color: #17a2b8; }
+        .badge.bg-success { background-color: #28a745; }
+        .badge.bg-danger { background-color: #dc3545; }
+        .badge.bg-secondary { background-color: #6c757d; }
+
+        .text-muted {
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+
+        @media (max-width: 768px) {
+            .table th, .table td {
+                font-size: 12px;
+                padding: 8px;
+            }
+            .card {
+                padding: 15px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="card p-4" id="myorder">
+        <h3>My Orders</h3>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Order ID</th>
+                    <th>Address</th>
+                    <th>Total (Rs.)</th>
+                    <th>Payment Method</th>
+                    <th>Paid</th>
+                    <th>Order Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.shipping_address }}</td>
+                    <td>Rs. {{ order.total_price|floatformat:2 }}</td>
+                    <td>{{ order.get_payment_method_display }}</td>
+                    <td>{{ order.is_paid|yesno:"Yes,No" }}</td>
+                    <td>{{ order.order_date|date:"Y-m-d H:i" }}</td>
+                    <td>
+                        <!-- Badge for Order Status -->
+                        <span class="badge 
+                            {% if order.status == 'Pending' %}bg-warning
+                            {% elif order.status == 'Dispatched' %}bg-info
+                            {% elif order.status == 'Delivered' %}bg-success
+                            {% elif order.status == 'Cancelled' %}bg-danger
+                            {% elif order.status == 'Returned' %}bg-secondary
+                            {% endif %}">
+                            {{ order.status }}
+                        </span>
+                    
+                        <!-- Cancel Button for Pending Orders -->
+                        {% if order.status == "Pending" %}
+                            <a href="{% url 'payment:change_order_status' order.id %}?status=Cancelled"
+                               class="btn btn-danger btn-sm ms-2"
+                               onclick="return confirm('Cancel this order?');">
+                                Cancel
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
+{% endblock content %}

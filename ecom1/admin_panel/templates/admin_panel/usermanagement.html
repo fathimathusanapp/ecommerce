@@ -1,0 +1,171 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        header nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main Section Styles */
+        main {
+            padding: 20px;
+        }
+
+        h2 {
+            color: #333;
+            font-size: 1.8rem;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        table th, table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        /* Action Button Styles */
+        .btn-activate, .btn-deactivate {
+            display: inline-block;
+            padding: 8px 12px;
+            margin: 5px 0;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .btn-activate {
+            background-color: #28a745; /* Green */
+        }
+
+        .btn-activate:hover {
+            background-color: #218838; /* Darker Green */
+        }
+
+        .btn-deactivate {
+            background-color: #dc3545; /* Red */
+        }
+
+        .btn-deactivate:hover {
+            background-color: #c82333; /* Darker Red */
+        }
+
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #333;
+            color: #fff;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Table No Data Styles */
+        .no-users {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #999;
+            padding: 20px 0;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>User Management</h1>
+        <nav>
+            <a href="{% url 'admin_panel:logout' %}" class="btn btn-primary">LOGOUT</a>
+        </nav>
+    </header>
+    
+    <main>
+        <section>
+            <h2>All Users</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.role }}</td>
+                        <td>{{ user.is_active|yesno:"Active,Inactive" }}</td>
+                        <td>
+                          {% if user.is_active %}
+                            <a href="{% url 'admin_panel:deactivate_user' user.id %}" class="btn-deactivate" onclick="return confirm('Are you sure you want to deactivate this user?');">Deactivate</a>
+                          {% else %}
+                            <a href="{% url 'admin_panel:activate_user' user.id %}" class="btn-activate" onclick="return confirm('Are you sure you want to activate this user?');">Activate</a>
+                          {% endif %}
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="no-users">No users found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 SnugBee eCommerce Admin Dashboard</p>
+    </footer>
+</body>
+</html>

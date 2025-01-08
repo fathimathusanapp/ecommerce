@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OTP Verification</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="container">
+    <h2>Enter OTP</h2>
+
+    <form method="post">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="otp">One-Time Password (OTP)</label>
+        <input type="text" id="otp" name="otp" required>
+      </div>
+
+      <button type="submit" class="btn">Verify OTP</button>
+    </form>
+
+    <p>If you didn't receive the OTP, <a href="{% url 'account:resend_otp' %}">click here to resend</a>.</p>
+  </div>
+
+</body>
+</html>

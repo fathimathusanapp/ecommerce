@@ -1,0 +1,47 @@
+<!-- admin_panel/templates/admin_panel/user_profile_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profiles</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>User Profiles</h1>
+        <p><a href="{% url 'admin_panel:dashboard' %}">Back to Dashboard</a></p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>phone_number</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.first_name }}</td>
+                        <td>{{ user.last_name }}</td>
+                        <td>{{ user.phone_number }}</td>
+                        <td>
+                            <a href="{% url 'admin_panel:user_profile_detail' user.id %}">View Profile</a> |
+                            <a href="{% url 'admin_panel:edit_user_profile' user.id %}">Edit Profile</a> |
+                            <a href="{% url 'admin_panel:delete_user_profile' user.id %}" onclick="return confirm('Are you sure you want to delete this profile?');">Delete</a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="5">No users found.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p><a href="{% url 'admin_panel:add_user_profile' %}">Add New User</a></p>
+    </div>
+</body>
+</html>

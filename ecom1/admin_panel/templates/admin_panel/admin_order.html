@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Orders</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table th, table td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        table tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .btn {
+            padding: 8px 12px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        select {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        p {
+            text-align: center;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Admin Orders</h1>
+    
+        {% if orders %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>User Email</th>
+                    <th>Status</th>
+                    <th>Total (Rs.)</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.user.email }}</td>
+                    <td>{{ order.status }}</td>
+                    <td>{{ order.total_price }}</td>
+    
+                    <td>
+                        <form method="post" action="{% url 'admin_panel:admin_update_order_status' %}">
+                            {% csrf_token %}
+                            <select name="status_{{ order.id }}">
+                                <option value="Pending" {% if order.status == "Pending" %}selected{% endif %}>Pending</option>
+                                <option value="Shipped" {% if order.status == "Shipped" %}selected{% endif %}>Shipped</option>
+                                <option value="Delivered" {% if order.status == "Delivered" %}selected{% endif %}>Delivered</option>
+                                <option value="Cancelled" {% if order.status == "Cancelled" %}selected{% endif %}>Cancelled</option>
+                            </select>
+                            <button type="submit" class="btn">Update</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No orders available.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Wishlist</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        /* Global Styles */
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    background-color: #fdfcfb; /* Soft cream background */
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* Header and Footer */
+header, footer {
+    background: linear-gradient(90deg, #f6d365, #fda085); /* Gradient shades */
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+header h1, footer p {
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+header p {
+    font-size: 1rem;
+}
+
+/* Wishlist Container */
+.wishlist-container {
+    max-width: 1200px;
+    margin: 30px auto;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    overflow: hidden;
+}
+
+.wishlist-container h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: #444;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* Wishlist Cards */
+.card-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card-column {
+    flex: 1 1 calc(33.33% - 20px);
+    box-sizing: border-box;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.wishlist-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.card-body {
+    padding: 15px;
+    text-align: left;
+}
+
+.card-title {
+    font-size: 1.4rem;
+    color: #555;
+    font-weight: 600;
+    margin: 5px 0;
+}
+
+.card-text {
+    font-size: 1.1rem;
+    color: #444;
+    margin: 10px 0;
+}
+
+.strike-through {
+    text-decoration: line-through;
+    color: #e74c3c;
+    font-size: 1rem;
+}
+
+.item-actions {
+    margin-top: 10px;
+}
+
+.item-actions a {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 8px 14px;
+    font-size: 0.9rem;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.item-actions a.remove {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.item-actions a.remove:hover {
+    background-color: #c0392b;
+    transform: scale(1.05);
+}
+
+.item-actions a.move {
+    background-color: #77dd77;
+    color: #fff;
+}
+
+.item-actions a.move:hover {
+    background-color: #4caf50;
+    transform: scale(1.05);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .card-column {
+        flex: 1 1 calc(50% - 20px);
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    footer p {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .card-column {
+        flex: 1 1 calc(100% - 20px);
+    }
+
+    .wishlist-container h2 {
+        font-size: 1.5rem;
+    }
+
+    .item-actions a {
+        font-size: 0.8rem;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Welcome to SnugBee🐝</h1>
+        <p>Buzzing with Perfect Comfort for Little Bees!</p>
+    </header>
+
+    <!-- Main Content -->
+    <div class="wishlist-container">
+        <h2>Your Wishlist</h2>
+        {% if wishlist_items %}
+            <div class="card-row">
+                {% for item in wishlist_items %}
+                    <div class="card-column">
+                        <div class="card">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <!-- Display Product Image -->
+                                    {% if item.product.image %}
+                                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="wishlist-image">
+                                    {% else %}
+                                        <span>No Image</span>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <!-- Product Name -->
+                                        <h5 class="card-title">{{ item.product.name }}</h5>
+                                        <!-- Product Price -->
+                                        <p class="card-text">
+                                            <strong class="price">₹{{ item.product.price|floatformat:2 }}</strong>
+                                        </p>
+                                        <!-- Product Description -->
+                                        <span class="strike-through">₹{{ item.product.description|truncatewords:20 }}</span>
+                                        <!-- Actions (Remove/Move to Cart) -->
+                                        <div class="item-actions">
+                                            <a href="{% url 'home:remove_from_wishlist' product_id=item.product.id %}" class="remove">Remove</a>
+                                            <a href="{% url 'home:move_to_cart' item_id=item.id %}" class="btn btn-primary">Move to Cart</a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>Your wishlist is empty.</p>
+        {% endif %}
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 SnugBee. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

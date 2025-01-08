@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - SnugBee</title>
+    {% load static %}
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url("{% static 'img/hero-carousel/bg1.webp' %}");
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: -1;
+        }
+        .container {
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 900px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        h4 {
+            color: #555;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        .btn {
+            padding: 10px 15px;
+            border: none;
+            color: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .add-btn {
+            background-color: #28a745;
+        }
+        .delete-btn {
+            background-color: #dc3545;
+        }
+        .address-item {
+            background-color: #fdfdfd;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .address-details {
+            flex: 1;
+            color: #333;
+            font-size: 14px;
+        }
+        .address-details p {
+            margin: 5px 0;
+        }
+        .address-actions {
+            margin-left: 20px;
+        }
+        .no-address {
+            text-align: center;
+            color: #777;
+            margin: 20px 0;
+            font-style: italic;
+        }
+        .add-form {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>My Profile❤️</h1>
+
+        <!-- Display Address -->
+        <div>
+            <h4>Address Information</h4>
+            {% if user.address_set.all %}
+                {% for address in user.address_set.all %}
+                    <div class="address-item">
+                        <div class="address-details">
+                            <strong> {{ address.first_name }} {{ address.last_name }}</strong><br>
+                            <strong>{{ address.phone_number }}</strong><br>
+                            <strong>{{ address.street }}</strong><br>
+                            <strong> {{ address.city }}</strong><br>
+                            <strong> {{ address.state }}</strong><br>
+                            <strong> {{ address.zipcode }}</strong><br>
+                        </div>
+                        <div class="address-actions">
+                            <form method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="address_id" value="{{ address.id }}">
+                                <button type="submit" name="delete_address" class="btn delete-btn">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="no-address">No address available. Please add one below.</p>
+            {% endif %}
+        </div>
+
+        <!-- Add Address Form -->
+        <div class="add-form">
+            <h4>Add New Address</h4>
+            <form method="POST">
+                {% csrf_token %}
+                {{ address_form.as_p }}
+                <button type="submit" name="add_address" class="btn add-btn">Add Address</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

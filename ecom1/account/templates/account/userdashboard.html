@@ -1,0 +1,201 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallet Overview</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+    <style>
+        /* Global Styles */
+        body {
+            background: linear-gradient(135deg, #fff 60%, #FFFACD);
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #333;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: white;
+            color: #333;
+            padding: 30px 20px;
+            border-radius: 20px;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-header h4 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #333;
+            text-decoration: none;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+
+        .nav-link i {
+            margin-right: 10px;
+            font-size: 1.4rem;
+        }
+
+        .nav-link:hover {
+            background: #FFFACD;
+        }
+
+        .nav-link.active {
+            background: #FFF8B5;
+            font-weight: bold;
+        }
+
+        /* Wallet Content */
+        .profile-container {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            flex-direction: column;
+        }
+
+        .card {
+            border-radius: 20px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 800px;
+            margin: auto;
+            background: white;
+        }
+
+        .profile-header {
+            background: #FFFACD;
+            color: #333;
+            text-align: center;
+            padding: 30px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .card-body {
+            text-align: center;
+            padding: 40px 30px;
+        }
+
+        .card-body h4 {
+            font-size: 1.6rem;
+            margin: 0 0 20px;
+            font-weight: 500;
+        }
+
+        .card-body strong {
+            color: #FFD700;
+            font-size: 2rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #FFF8B5;
+            text-align: center;
+            padding: 20px;
+            color: #333;
+            font-size: 1rem;
+            margin-top: auto;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                height: auto;
+                padding: 20px;
+            }
+
+            .nav-link {
+                font-size: 1rem;
+                padding: 10px 15px;
+            }
+
+            .profile-header {
+                font-size: 1.6rem;
+                padding: 20px;
+            }
+
+            .card-body h4 {
+                font-size: 1.4rem;
+            }
+
+            .card-body strong {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3 sidebar">
+                <div class="sidebar-header">
+                    <h4>Navigation</h4>
+                </div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'account:profile' %}">
+                            <i class="bi bi-person-circle"></i> My Profile
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'payment:order' %}">
+                            <i class="bi bi-receipt"></i> My Orders
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'account:logout' %}">
+                            <i class="bi bi-box-arrow-right"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Wallet Content -->
+            <div class="col-md-9 profile-container">
+                <div class="card">
+                    <div class="profile-header">
+                        Wallet Overview
+                    </div>
+                    <div class="card-body">
+                        <h4>Your current wallet balance:</h4>
+                        <h4><strong>Rs: {{ wallet }}</strong></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>© 2024 SnugBee. All rights reserved.</p>
+    </div>
+</body>
+</html>

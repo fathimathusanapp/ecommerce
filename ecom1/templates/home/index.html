@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>SnugBee</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link href="{% static 'img/logo1.jpg' %}" rel="icon">
+  <link href="{% static 'img/logo1.jpg' %}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'css/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'css/swiper-bundle.min.css' %}" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{% static 'css/main.css' %}" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<!-- Keep only this Bootstrap version -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+  <style>
+ /* General Reset and Defaults */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+.dark-background {
+  background: #222;
+  color: #fff;
+}
+
+/* Hero Section */
+#hero {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+
+/* Carousel Images */
+.carousel img {
+  width: 100%; /* Ensures the image covers the full width of the container */
+  height: 100%; /* Makes the image cover the full height */
+  object-fit: cover; /* Ensures the image fills the container without distortion */
+}
+
+/* Carousel Item */
+.carousel-item {
+  position: relative;
+  height: 100vh; /* Full-screen height for carousel */
+  background-color: #000; /* Fallback background color */
+}
+
+/* Overlay Fix */
+.carousel-item img {
+  display: block; /* Ensures proper layout */
+  background-color: #000; /* Black background as fallback */
+}
+
+
+#hero .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+#hero .carousel-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 2;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+#hero .carousel-container h2 {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+#hero .carousel-container p {
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
+
+/* Carousel Controls and Indicators */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+.carousel-indicators li {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+}
+
+.carousel-indicators .active {
+  background-color: #fff;
+}
+
+/* Navigation Bar */
+nav {
+  width: 100vw;
+  background-color: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+nav .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+/* Logo Section Styles */
+
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05); /* Slightly enlarge on hover */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a soft shadow on hover */
+}
+
+.sitename {
+    color: #333; /* Darker text color for readability */
+    font-size: 27px; /* Size of the site name */
+    font-weight: bold;
+    margin-right: 5px; /* Space between text and logo */
+    transition: color 0.3s ease;
+}
+
+.sitename:hover {
+    color: #ff9900; /* Highlight text on hover */
+}
+
+.logo img {
+    height: 40px; /* Adjust logo height */
+    width: auto; /* Maintain aspect ratio */
+    margin: 0;
+    padding: 0;
+    transition: opacity 0.3s ease;
+}
+
+.logo img:hover {
+    opacity: 0.8; /* Slight fade effect on hover */
+} 
+nav .nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+nav .nav-links a {
+  text-decoration: none;
+  color: black;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+nav .nav-links a:hover {
+  color: #ddaf4b;
+}
+
+nav .search-form {
+  display: flex;
+  gap: 10px;
+}
+
+nav .search-form input[type="text"] {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 250px;
+  font-size: 14px;
+}
+
+nav .search-form button {
+  background-color: #ddaf4b;
+  color: black;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+nav .search-form button:hover {
+  background-color: #c6933b;
+}
+
+/* Portfolio Section */
+#portfolio {
+  padding: 60px 0;
+  background: #f9f9f9;
+}
+
+#portfolio .section-title {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+#portfolio .section-title h2 {
+  font-size: 2.5rem;
+  font-weight: 600;
+}
+
+#portfolio .row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+#portfolio .card {
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+#portfolio .card:hover {
+  transform: translateY(-10px);
+}
+
+#portfolio .card img {
+  width: 100%;
+  border-radius: 5px;
+}
+
+/* Moving Offer */
+.moving-container {
+  margin-top: 5px; /* Reduce margin */
+  padding: 1px; /* Reduce padding */
+  background: linear-gradient(90deg, #ff5722, #fbc02d);
+  color: #fff;
+  font-size: 0.7rem; /* Smaller font size */
+  text-align: center;
+  font-weight: bold;
+  border-radius: 5px; /* Retain rounded corners */
+  animation: moveText 10s linear infinite;
+}
+
+@keyframes moveText {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+
+/* Footer Section */
+#footer {
+  padding: 40px 0;
+  color: #fff;
+  background-color: #333;
+}
+
+#footer .footer-top {
+  border-top: 3px solid #ff5722;
+  padding-top: 20px;
+}
+
+#footer .footer-contact h3 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #ff5722;
+}
+
+#footer .footer-contact p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #ddd;
+}
+
+#footer .footer-contact a {
+  color: #fbc02d;
+  text-decoration: none;
+}
+
+#footer .footer-contact a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  #footer .footer-contact h3 {
+    font-size: 1.5rem;
+  }
+  #footer .footer-contact p {
+    font-size: 0.9rem;
+  }
+}
+
+  </style>
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+      <!-- Logo Section -->
+      <a href="{% url 'home:index' %}" class="logo" style="display: flex; align-items: center; text-decoration: none;">
+        <h1 class="sitename" style="color: black; margin-right: 10px;">SnugBee</h1>
+        <img src="{% static 'img/cuteBee.png' %}" alt="SnugBee Logo" style="height: 40px; width: auto; margin: 0; padding: 0;">
+      </a>
+    </div> 
+
+<!-- Navigation Menu -->
+<nav id="navmenu" class="navmenu" style="background-color: #f8f9fa; padding: 10px 20px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); justify-content: flex-end;">
+  <div class="d-flex justify-content-between w-100 align-items-center">
+      
+      <!-- Right Side Menu -->
+      <ul style="display: flex; justify-content: space-between; align-items: center; list-style: none; margin: 0; padding: 0;">
+          <li>
+              <a href="{% url 'home:index' %}" class="active" style="color: rgb(36, 34, 34); font-size: 18px; font-weight: bold;">HOME</a>
+          </li>
+
+          {% if user.is_authenticated %}
+              <li>
+                  <a href="{% url 'home:cart' %}" class="text-dark" style="color: #333;">
+                      <i class="fas fa-shopping-cart" style="font-size: 1.5rem;"></i>
+                  </a>
+              </li>
+              <li>
+                  <a href="{% url 'home:wishlist' %}" class="text-dark" style="color: #333;">
+                      <i class="fas fa-heart" style="font-size: 1.5rem;"></i>
+                  </a>
+              </li>
+              <li>
+                  <a href="{% url 'account:profile' %}" class="text-dark" style="color: #333;">
+                      <i class="fas fa-user-circle" style="font-size: 1.5rem;"></i>
+                  </a>
+              </li>
+              <li>
+                  <a href="{% url 'account:userdashboard' %}" style="color: #333; font-size: 16px; margin: 0; padding: 0;">DASHBOARD</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link text-danger" href="{% url 'account:logout' %}" style="color: #e74c3c;">
+                      <i class="fas fa-power-off" style="font-size: 1.5rem;"></i>
+                  </a>
+              </li>
+              <li style="color: #333; font-size: 14px; margin-left: 20px;">
+                  <span style="color: red;">Welcome {{ user.get_full_name|default:user.username }}!</span>
+              </li>
+          {% else %}
+              <li>
+                  <a href="{% url 'account:register' %}" style="color: #333; font-size: 16px;">REGISTER</a>
+              </li>
+              <li>
+                  <a href="{% url 'account:login' %}" style="color: #333; font-size: 16px;">LOGIN&nbsp;&nabla;&nbsp;</a>
+              </li>
+          {% endif %}
+      </ul>
+  </div>
+
+  <!-- Search Form -->
+  <form method="GET" action="{% url 'home:search' %}" style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px;">
+      <input type="text" name="q" placeholder="Search products..." required 
+          style="padding: 8px 12px; border: 2px solid #ddd; border-radius: 5px 0 0 5px; outline: none; font-size: 14px; width: 250px; transition: border-color 0.3s ease; background-color: #fff;">
+      <button type="submit" 
+          style="background-color: #ddaf4b; color: rgb(31, 31, 31); border: 2px solid #ddaf4b; padding: 8px 12px; border-radius: 0 5px 5px 0; cursor: pointer; font-size: 14px; transition: all 0.3s ease;">
+          Search
+      </button>
+  </form>
+</nav>
+
+    </div>
+  </header>
+
+</body>
+<section id="hero" class="hero section dark-background">
+  <div id="hero-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000">
+    <div class="carousel-inner">
+      {% for i in carousel_items %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+          <img src="{{ i.carousel_image.url }}" alt="{{ i.title }}" class="d-block w-100">
+          <div class="carousel-container">
+            {% if i.title %}
+              <h2>{{ i.title }}</h2>
+            {% endif %}
+            {% if i.description %}
+              <p>{{ i.description }}</p>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- Carousel Controls -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#hero-carousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#hero-carousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+
+    <!-- Carousel Indicators -->
+    <ol class="carousel-indicators">
+      {% for i in carousel_items %}
+        <li data-bs-target="#hero-carousel" data-bs-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"></li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>
+
+
+
+<!-- Category Section -->
+<section id="portfolio" class="portfolio section">
+  <div class="container section-title" data-aos="fade-up">
+       <br><br><h2>Select Your Favorite</h2>
+       <p><strong>Categories</strong></p><br><br>
+
+      <div class="row">
+         {% for i in categories %}
+            <div class="col-lg-4 col-md-6 mb-4">
+               <div class="card">
+                  <div class="card-body text-center">
+                    {% if i.category_image %}
+                      <h3>{{ i.name }}</h3>
+                      <a href="{% url 'home:product_view' i.id %}">
+                          <img src="{{ i.category_image.url }}" alt="{{ i.name }}" class="img-fluid">
+                      </a>
+                    {% else %}
+                      <h3>{{ i.name }}</h3>
+                      <p>No image available</p>
+                    {% endif %}
+                  </div>
+                </div>
+             </div>
+          {% endfor %}
+  
+      </div>
+
+      <div class="moving-container">
+        <p class="moving-text"><strong>Special Offer:</strong> Get <strong>20% </strong> off on your first purchase!</p>
+      </div> 
+  </div>
+</section>
+ 
+<footer id="footer" class="footer dark-background">
+  <div class="container footer-top">
+    <div class="row gy-4">
+      <div class="col-lg-4 col-md-6 footer-contact">
+        <h3>Contact Us</h3>
+        <p>
+          SnugBee<br>
+          SnugTown, Kannur<br>
+          Phone: +91 456 789000<br>
+          Email: <a href="mailto:info@snugbee.com">info@snugbee.com</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+

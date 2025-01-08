@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    {% load static %}
+    <style>
+        /* Body Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url("{% static 'img/hero-carousel/bg1.webp' %}");
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+    
+        /* Overlay Effect for Background */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: -1;
+        }
+    
+        /* Form Container Styling */
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+    
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+    
+        /* Form Group Styling */
+        .form-group {
+            margin-bottom: 15px;
+        }
+    
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+    
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    
+        .form-group input:focus {
+            outline: none;
+            border-color: #5cb85c;
+            box-shadow: 0 0 5px rgba(92, 184, 92, 0.5);
+        }
+    
+        /* Submit Button Styling */
+        .form-group button {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+    
+        .form-group button:hover {
+            background-color: #4cae4c;
+        }
+    
+        /* Alert Messages Styling */
+        .error-message,
+        .info-message {
+            text-align: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+    
+        .error-message {
+            color: #721c24;
+            background-color: #f8d7da;
+        }
+    
+        .info-message {
+            color: #155724;
+            background-color: #d4edda;
+        }
+    
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .form-container {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="form-container">
+        <h2>Register</h2>
+        <form method="post" action="{% url 'account:register' %}">
+            {% csrf_token %}
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="{% if message.tags %}{{ message.tags }}-message{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmpassword">Confirm Password</label>
+                <input type="password" id="confirmpassword" name="confirmpassword" placeholder="Re-enter your password" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Register and Send OTP</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

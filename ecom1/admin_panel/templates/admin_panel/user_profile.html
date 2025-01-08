@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile Management</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .container-fluid {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .bg-secondary {
+            background-color: #f3f4f6 !important;
+        }
+
+        h6 {
+            color: #4b4f56;
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+        }
+
+        .form-control {
+            border-radius: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-color: #e1e4e8;
+        }
+
+        .form-control:focus {
+            border-color: #a3d8f4;
+            box-shadow: 0 0 8px rgba(163, 216, 244, 0.6);
+        }
+
+        .btn {
+            border-radius: 30px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+            border: none;
+        }
+
+        .btn-danger {
+            background-color: #ff4d4f;
+            color: white;
+            border: none;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        .btn-danger:hover {
+            background-color: #e03e3e;
+            transform: scale(1.05);
+        }
+
+        .btn:focus {
+            outline: none;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            color: #6c757d;
+            font-size: 1rem;
+        }
+
+        .form-group input {
+            font-size: 1.1rem;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <!-- Main Content Area -->
+            <div class="col-md-9">
+                <div class="bg-secondary rounded h-100 p-4">
+                    <h6 class="mb-4">User Profile</h6>
+                    <form method="POST" action="{% url 'admin_panel:edit_user_profile' user.id %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="first_name">First Name</label>
+                            <input type="text" class="form-control" id="first_name" name="first_name" value="{{ user.first_name }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="last_name">Last Name</label>
+                            <input type="text" class="form-control" id="last_name" name="last_name" value="{{ user.last_name }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone_number">Phone Number</label>
+                            <input type="text" class="form-control" id="phone_number" name="phone_number" value="{{ user.phone_number }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="street">Street</label>
+                            <input type="text" class="form-control" id="street" name="street" value="{{ user.profile.street }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" class="form-control" id="city" name="city" value="{{ user.profile.city }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="state">State</label>
+                            <input type="text" class="form-control" id="state" name="state" value="{{ user.profile.state }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="zipcode">Zipcode</label>
+                            <input type="text" class="form-control" id="zipcode" name="zipcode" value="{{ user.profile.zipcode }}">
+                        </div>
+                        <div class="btn-container">
+                          <a href="{% url 'admin_panel:edit_user_profile' user.id %}" class="btn btn-success">Edit Profile</a>
+                          <a href="{% url 'admin_panel:delete_user_profile' user.id %}" class="btn btn-danger">Delete Profile</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

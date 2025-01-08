@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Carousel</title>
+    <!-- Add your CSS here -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Custom Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin-top: 20px;
+        }
+        .container-fluid {
+            padding: 20px;
+        }
+        .bg-secondary {
+            background-color: #6c757d !important;
+        }
+        .rounded {
+            border-radius: 5px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-control {
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        h6 {
+            color: #fff;
+            font-size: 1.2rem;
+        }
+        label {
+            font-size: 1rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-secondary rounded h-100 p-4">
+                <h6 class="mb-4">Add Carousel</h6>
+                <form action="" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}  <!-- Correct CSRF token inclusion -->
+
+                    <!-- Title Field -->
+                    <div class="col-sm-6 mb-3">
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" name="title" class="form-control" placeholder="Enter Carousel Title" required>
+                        </div>
+                    </div>
+
+                    <!-- Image Upload Field -->
+                    <div class="col-sm-6 mb-3">
+                        <div class="form-group">
+                            <label>Carousel Image</label>
+                            <input type="file" name="image" class="form-control" accept="image/*" required>
+                        </div>
+                    </div>
+    
+                    <!-- Description Field -->
+                    <div class="col-sm-12 mb-3">
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea name="description" class="form-control" placeholder="Write carousel description here" rows="4" style="resize: none;" required></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <input type="submit" value="Submit" class="m-2 px-3 btn btn-primary">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add your JS here -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

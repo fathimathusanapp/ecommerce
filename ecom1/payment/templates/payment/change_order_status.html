@@ -1,0 +1,129 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Order Status</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <style>
+        body {
+            background-color: #f9f4fc;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #ff85b3;
+            padding: 15px;
+            color: white;
+        }
+
+        .navbar a {
+            color: white;
+            margin-right: 15px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .navbar a:hover {
+            color: #ffcfdf;
+        }
+
+        .status-change-container {
+            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .status-change-card {
+            width: 80%;
+            max-width: 600px;
+            border-radius: 12px;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
+            background: #fff;
+        }
+
+        .status-change-header {
+            background: linear-gradient(135deg, #ff85b3, #ffcfdf);
+            color: black;
+            padding: 20px;
+            text-align: center;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .status-change-body {
+            padding: 30px;
+            font-size: 1.1rem;
+        }
+
+        .status-change-actions {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .status-change-actions button {
+            background-color: #ff629f;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .status-change-actions button:hover {
+            background-color: #e4006d;
+        }
+
+        @media (max-width: 768px) {
+            .status-change-container {
+                margin-top: 30px;
+            }
+            .status-change-card {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <a href="{% url 'account:profile' %}">My Profile</a>
+        <a href="{% url 'payment:order' %}">My Orders</a>
+    </div>
+
+    <!-- Status Change Card -->
+    <div class="status-change-container">
+        <div class="status-change-card">
+            <div class="status-change-header">
+                Change Order Status
+            </div>
+            <div class="status-change-body">
+                <p><strong>Order ID:</strong> {{ order.id }}</p>
+                <p><strong>Current Status:</strong> {{ order.status }}</p>
+
+                <div class="status-change-actions">
+                    <form method="get">
+                        <label for="status">Choose new status:</label>
+                        <select name="status" id="status" required>
+                            {% for status in order_status_choices %}
+                                <option value="{{ status.0 }}">{{ status.1 }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit">Update Status</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,241 @@
+{% load static %}  <!-- This line loads the static files tag library -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }} - SnugBee</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body and Layout */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Product Detail Container */
+        .product-detail {
+            width: 80%;
+            max-width: 1200px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 30px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            text-align: center; /* Center all content inside */
+        }
+
+        .product-detail h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .product-detail h2.category {
+            font-size: 1.5rem;
+            color: #888;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .product-detail .price {
+            font-size: 1.25rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .product-detail .price strong {
+            color: #1b0505;
+        }
+
+        .product-detail .price .tax-note {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        /* Product Image */
+        .product-detail img {
+            max-width: 100%; 
+            height: auto;
+            margin: 20px 0; /* Added margin for spacing */
+            border-radius: 8px; /* Optional: rounded corners for the image */
+        }
+
+        /* Strike-through Price */
+        .strike-through {
+            text-decoration: line-through;  
+            color: red;  
+            font-size: 1.2rem;
+        }
+
+        /* Sizes Section */
+        .sizes {
+            margin: 20px 0;
+            text-align: left; /* Align sizes to the left */
+        }
+
+        .sizes h3 {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .sizes .size-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .sizes .size-list li {
+            display: inline-block;
+            margin-right: 10px;
+            padding: 5px 10px;
+            background-color: #f4f4f4;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .sizes .size-list li:hover {
+            background-color: #e6e6e6;
+        }
+
+        /* Size Chart Link */
+        .size-chart {
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        .size-chart:hover {
+            text-decoration: underline;
+        }
+
+        /* Form and Select */
+        form {
+            margin-top: 20px;
+            text-align: left; /* Align form elements to the left */
+        }
+
+        form label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        form select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        form a {
+            display: inline-block;
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        form a:hover {
+            background-color: #218838;
+        }
+
+        /* Button */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: palevioletred;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .btn.view-more {
+            background-color: #6c757d;
+        }
+
+        .btn:hover {
+            background-color: pink;
+        }
+
+        .btn.view-more:hover {
+            background-color: #5a6268;
+        }
+
+        /* Wishlist Button */
+.btn.wishlist-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color:  #e44949; /* Red heart color */
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.btn.wishlist-btn:hover {
+    background-color: #e47d7d; /* Darker red on hover */
+}
+
+.btn.wishlist-btn:focus {
+    outline: none;
+}
+
+    </style>
+</head>
+<body>
+    <div class="product-detail">
+        <h2 class="category">{{ product.category.name|upper }}</h2>
+        <h1 class="product-name">{{ product.name }}</h1>
+        
+        {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        {% endif %}
+        
+        <br><span class="strike-through">₹{{ product.description }}</span> 
+        <p class="price">
+            <strong>MRP ₹ {{ product.price }}</strong>
+            <span class="tax-note">*Inclusive of all taxes</span>
+        </p>
+
+
+        <form method="post" action="{% url 'home:add_to_cart' product.id %}">
+            {% csrf_token %}
+            <label for="size">Choose Size:</label>
+            <select name="size" id="size" required>
+                <option value="NEW BORN">NEW BORN</option>
+                <option value="0-3 MONTHS">0-6 MONTHS</option>
+                <option value="3-6 MONTHS">6-9 MONTHS</option>
+                <option value="6-9 MONTHS">9-12 MONTHS</option>
+                <option value="9-12 MONTHS">12-18 MONTHS</option>
+                <option value="12-18 MONTHS">18-24 MONTHS</option>
+                <option value="18-24 MONTHS">2-4 YEARS</option>
+            </select>
+            <a href="{% url 'home:add_to_cart' product.id %}">Add to Cart</a>
+            <a href="{% url 'home:cart' %}">Go to Cart</a>
+        </form>
+        <form method="post" action="{% url 'home:add_to_wishlist' product.id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn wishlist-btn">❤️ Add to Wishlist</button>
+        </form>
+    </div>
+</body>
+</html>

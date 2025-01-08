@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coupon List</title>
+    <style>
+        /* Global styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Table Styling */
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: white;
+            font-size: 16px;
+        }
+
+        td {
+            font-size: 14px;
+        }
+
+        /* Link Styling */
+        a {
+            color: #007BFF;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #0056b3;
+        }
+
+        /* Heading Styling */
+        h2 {
+            text-align: center;
+            color: #333;
+            font-size: 24px;
+            margin-top: 20px;
+        }
+
+        /* Add Coupon Link */
+        .add-coupon {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        .add-coupon a {
+            padding: 10px 20px;
+            color: white;
+            background-color: #28a745;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .add-coupon a:hover {
+            background-color: #218838;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h2>Coupon List</h2>
+
+    <table>
+        <tr>
+            <th>Code</th>
+            <th>Discount Percentage</th>
+            <th>Active</th>
+            <th>Actions</th>
+        </tr>
+        {% for coupon in coupons %}
+        <tr>
+            <td>{{ coupon.code }}</td>
+            <td>{{ coupon.discount_percentage }}%</td>
+            <td>{{ coupon.active }}</td>
+            <td>
+                <a href="{% url 'admin_panel:edit_coupon' coupon.id %}">Edit</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div class="add-coupon">
+        <a href="{% url 'admin_panel:add_coupon' %}">Add New Coupon</a>
+    </div>
+
+</body>
+</html>

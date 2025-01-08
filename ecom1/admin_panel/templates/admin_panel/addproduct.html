@@ -1,0 +1,129 @@
+{% comment %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Product</title>
+</head>
+<body>
+    <h1>Add New Product</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Render the form fields -->
+        <button type="submit">Add Product</button>
+    </form>
+    <a href="{% url 'admin_panel:product_dashboard' %}">Back to Dashboard</a>  <!-- Link to the product dashboard -->
+</body>
+</html> {% endcomment %}
+
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #eef2f3; /* Soft gray background */
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 600; /* Bold font for better emphasis */
+        }
+
+        form {
+            max-width: 500px; /* Limit the width of the form */
+            margin: 0 auto; /* Center the form */
+            padding: 30px;
+            background-color: #ffffff; /* White background for the form */
+            border-radius: 12px; /* Rounded corners for the form */
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15); /* Softer shadow */
+            transition: box-shadow 0.3s; /* Smooth shadow transition */
+        }
+
+        form:hover {
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+        }
+
+        form input[type="text"],
+        form input[type="number"],
+        form input[type="file"],
+        form textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px; /* Rounded corners for inputs */
+            font-size: 16px; /* Increased font size for inputs */
+            box-sizing: border-box; /* Include padding in width calculation */
+            transition: border-color 0.3s; /* Smooth border color transition */
+        }
+
+        form input:focus,
+        form textarea:focus {
+            border-color: #007bff; /* Highlight border color on focus */
+            outline: none; /* Remove default outline */
+        }
+
+        form button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff; /* Bootstrap primary color */
+            color: white;
+            border: none;
+            border-radius: 8px; /* Rounded corners for button */
+            font-size: 18px; /* Increased button font size */
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s; /* Added transform effect */
+        }
+
+        form button:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+            transform: translateY(-2px); /* Lift effect on hover */
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 16px; /* Consistent font size */
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: #0056b3; /* Darker shade on hover */
+        }
+
+        /* Responsive design for smaller screens */
+        @media (max-width: 600px) {
+            form {
+                padding: 20px;
+            }
+
+            form button {
+                font-size: 16px; /* Adjust button font size for smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Add New Product</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Render the form fields -->
+        <button type="submit">Add Product</button>
+    </form>
+    <a href="{% url 'admin_panel:product_dashboard' %}">Back to Dashboard</a>  <!-- Link to the product dashboard -->
+</body>
+</html> 

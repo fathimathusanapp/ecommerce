@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #333;
+            font-size: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Product Cards */
+        .products-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .product-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 280px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .product-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .product-card .strike-through {
+            text-decoration: line-through;
+            color: red;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .product-card strong {
+            font-weight: bold;
+            color: black;
+            font-size: 1.2rem;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .product-card a.btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            color: #fff;
+            background-color: #27ae60;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .product-card a.btn:hover {
+            background-color: #219150;
+        }
+
+        .product-card .btn.disabled {
+            background-color: #ccc;
+            pointer-events: none;
+        }
+
+        /* Message when no products are found */
+        .no-products {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #e74c3c;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Search Results for "{{ query }}"</h1>
+
+        {% if products %}
+        <div class="products-list">
+            {% for product in products %}
+            <div class="product-card">
+                {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                {% endif %}
+                <h3>{{ product.name }}</h3>
+                <p class="strike-through">₹{{ product.description }}</p>
+                <strong>₹{{ product.price }}</strong>
+                {% if product.id %}
+                <a href="{% url 'home:product_detail' product.id %}" class="btn">View More</a>
+                {% else %}
+                <span class="btn disabled">View More</span>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="no-products">No products found matching your query.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

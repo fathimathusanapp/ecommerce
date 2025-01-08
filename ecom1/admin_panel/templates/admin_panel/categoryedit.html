@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Category</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 16px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"], input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .back-link:hover {
+            color: #0056b3;
+        }
+
+        .category-image-preview {
+            max-width: 150px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Edit Category</h2>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="name">Category Name:</label>
+            <input type="text" name="name" id="name" value="{{ category.name }}" required>
+            
+            <!-- Category Image -->
+            <label for="image">Category Image:</label>
+            <input type="file" name="image" id="image">
+            
+            <!-- Display current image if it exists -->
+            {% if category.image %}
+                <div>
+                    <h4>Current Image:</h4>
+                    <img src="{{ category.image.url }}" class="category-image-preview" alt="Category Image">
+                </div>
+            {% endif %}
+            
+            <button type="submit" class="submit-btn">Update</button>
+        </form>
+        <a href="{% url 'admin_panel:category_list' %}" class="back-link">Back to Categories</a>
+    </div>
+</body>
+</html>

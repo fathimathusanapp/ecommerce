@@ -1,0 +1,8 @@
+<!-- confirm_delete.html -->
+<h2>Confirm Deletion</h2>
+<p>Are you sure you want to delete "{{ product.name }}"?</p>
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">Delete</button>
+    <a href="{% url 'admin_panel:product_dashboard' %}">Cancel</a>
+</form>

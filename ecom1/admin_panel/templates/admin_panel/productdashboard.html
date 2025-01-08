@@ -1,0 +1,183 @@
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Dashboard</title>
+</head>
+<body>
+    <h2>Product Dashboard</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Category</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+                <tr>
+                    <td>{{ product.id }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.desc }}</td>
+                    <td>{{ product.price }}</td>
+                    <td>{{ product.stock }}</td>
+                    <td>{{ product.category.Category_name }}</td>
+                    <td>
+                        {% if product.img %}
+                            <img src="{{ product.img.url }}" alt="Product image" width="50">
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'admindashboard:edit_product' product.id %}">Edit</a>
+                         <a href="{% url 'admindashboard:delete_product' product.id %}" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>  <!-- Delete link -->
+
+
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'admindashboard:add_product' %}">Add New Product</a>
+</body>
+</html> {% endcomment %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        img {
+            max-width: 50px; /* Limit image size */
+            height: auto;
+        }
+
+        .action-links {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-links a {
+            padding: 5px 10px;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            color: #007bff;
+            background-color: white;
+            transition: background-color 0.3s;
+        }
+
+        .action-links a:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .add-product {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            color: white;
+            background-color: #007bff;
+            text-align: center;
+            width: fit-content;
+            transition: background-color 0.3s;
+        }
+
+        .add-product:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h2>Product Dashboard</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Category</th>
+                <th>Image</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for product in products %}
+                <tr>
+                    <td>{{ product.id }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.desc }}</td>
+                    <td>{{ product.price }}</td>
+                    <td>{{ product.stock }}</td>
+                    <td>{{ product.category.Category_name }}</td>
+                    <td>
+                        {% if product.img %}
+                            <img src="{{ product.img.url }}" alt="Product image">
+                        {% endif %}
+                    </td>
+                    <td class="action-links">
+                        <a href="{% url 'admin_panel:edit_product' product.id %}">Edit</a>
+                        <a href="{% url 'admin_panel:delete_product' product.id %}" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a class="add-product" href="{% url 'admin_panel:add_product' %}">Add New Product</a>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    {% load static %}
+    <style>
+       /* Body Styling */
+       body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url("{% static 'img/hero-carousel/bg1.webp' %}");
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+    
+        /* Overlay Effect for Background */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: -1;
+        }
+    
+    
+        .login-container {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+            max-width: 400px;
+        }
+    
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+    
+        .form-group {
+            margin-bottom: 15px;
+        }
+    
+        label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #555;
+        }
+    
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+    
+        .btn {
+            display: block;
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    
+        .btn:hover {
+            background-color: #45a049;
+        }
+    
+        .alert {
+            background-color: #f8d7da;
+            color: #842029;
+            padding: 10px;
+            margin-top: 15px;
+            border-radius: 4px;
+            border: 1px solid #f5c2c7;
+        }
+    
+        .alert-danger {
+            margin-top: 15px;
+        }
+    
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 15px;
+            }
+    
+            h2 {
+                font-size: 18px;
+            }
+    
+            input, .btn {
+                font-size: 14px;
+            }
+        }
+    </style>
+    
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Login</h2>
+    <form action="{% url 'account:login' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="username">USERNAME</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="password">PASSWORD</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn">Login</button>
+        <a href="{% url 'account:password_reset' %}">Forgot Password?</a>
+
+        {% if messages %}
+        <div class='alert alert-danger'>
+            {% for message in messages %}
+                <div class="alert">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </form>
+</div>
+
+</body>
+</html>
