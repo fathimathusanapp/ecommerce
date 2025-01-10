@@ -76,19 +76,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ecom1.wsgi.application'
 
+from decouple import config
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'fathimathusana51@gmail.com'  # Replace with your email address
-EMAIL_HOST_PASSWORD = 'ezqu fofo gndo iahe'
-
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 AUTH_USER_MODEL = 'admin_panel.CustomUser'
 
-STRIPE_PUBLISHABLE_KEY ="pk_test_51QcQ0PFHIp6m4TV9reTKml3UP6MAECkwJP5sTw87vLFgnHtjbkSthuxWAxhdBL6ZLQjwlFlkrrR8gdUKMULFaNUc00BBimqbAT"
-STRIPE_SECRET_KEY = "sk_test_51QcQ0PFHIp6m4TV9z4ObwmtvvrTl5B8PXsLP9NnO0Eh1GaoTQ8AGMuruYzM6z7dnP0ZEKhdbdrHo9iMpaW1AxDsV00A7Oh94kl"
-
+STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
+STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
@@ -96,11 +96,11 @@ STRIPE_SECRET_KEY = "sk_test_51QcQ0PFHIp6m4TV9z4ObwmtvvrTl5B8PXsLP9NnO0Eh1GaoTQ8
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'project1',
-        'USER': 'postgres',
-        'PASSWORD': 'sana123',
-        'HOST': 'localhost',  # or the IP address of the database server
-        'PORT': '5432',       # default PostgreSQL port
+        'NAME': config('DATABASE_NAME'),
+        'USER': config('DATABASE_USER'),
+        'PASSWORD': config('DATABASE_PASSWORD'),
+        'HOST': config('DATABASE_HOST', default='localhost'),
+        'PORT': config('DATABASE_PORT', default='5432'),
     }
 }
 
